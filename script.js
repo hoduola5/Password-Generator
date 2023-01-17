@@ -116,7 +116,7 @@ getRandom(passwordLength, lowerCaseCharacter, upperCaseCharacter, userNumericCha
 
 // Function for getting a random element from an array
 function getRandom() {
-
+  getPasswordOptions();
   // Variables for all possible possible password combinations
   let allCharacters = specialCharacters.concat(numericCharacters.concat(lowerCasedCharacters.concat(upperCasedCharacters))).join("");
   let numberSpecialLower = numericCharacters.concat(lowerCasedCharacters.concat(specialCharacters)).join("");
@@ -145,9 +145,91 @@ function getRandom() {
 }
 
 // Function to generate password with user input
-function generatePassword() {
-
-}
+function generatePassword(passwordLength, lowerCaseCharacter, upperCaseCharacter, userNumericCharacter, userSpecialCharacter, allConditions) {
+  getRandom();
+  let result = "";
+  let test = true;
+    for (let i = 0, n = allConditions; i < passwordLength; ++i) {
+      switch(test) {
+        // 4 conditions
+        case (userNumericCharacter === true && userSpecialCharacter === true
+          && lowerCaseCharacter === true && upperCaseCharacter === true):
+          result += allCharacters.charAt(Math.floor(Math.random() * passwordLength));
+          break;
+          // 3 conditions
+        case (userNumericCharacter === true && userSpecialCharacter === true
+          && lowerCaseCharacter === true):
+          result += numberSpecialLower.charAt(Math.floor(Math.random() * passwordLength));
+          break;
+          // 3 conditions
+        case (userNumericCharacter === true && userSpecialCharacter === true
+          && upperCaseCharacter === true):
+          result += numberSpecialUpper.charAt(Math.floor(Math.random() * passwordLength));
+          break;
+          // 3 conditions
+        case (userNumericCharacter === true && lowerCaseCharacter === true
+          && upperCaseCharacter === true):
+          result += numberLowerUpper.charAt(Math.floor(Math.random() * passwordLength));
+          break;
+          // 3 conditions
+        case (userSpecialCharacter === true && lowerCaseCharacter === true
+          && upperCaseCharacter === true):
+          result += specialLowerUpper.charAt(Math.floor(Math.random() * passwordLength));
+          break;
+          // 2 conditions
+        case (userNumericCharacter === true && userSpecialCharacter === true):
+          result += specialNumber.charAt(Math.floor(Math.random() * passwordLength));
+          break;
+          // 2 conditions
+        case lowerCaseCharacter:
+        case upperCaseCharacter:
+          result += lowerUpper.charAt(Math.floor(Math.random() * passwordLength));
+          break;
+          // 2 conditions
+        case (lowerCasedCharacters === true && userSpecialCharacter === true):
+          result += lowerSpecial.charAt(Math.floor(Math.random() * passwordLength));
+          break;
+          // 2 conditions
+        case (lowerCasedCharacters === true && numericCharacters === true):
+          result += lowerNumber.charAt(Math.floor(Math.random() * passwordLength));
+          break;
+          // 2 conditions
+        case (upperCasedCharacters === true && numericCharacters === true):
+          result += upperNumber.charAt(Math.floor(Math.random() * passwordLength));
+          break;
+          // 2 conditions
+        case (specialCharacters === true && upperCasedCharacters === true):
+          result += specialUpper.charAt(Math.floor(Math.random() * passwordLength));
+          break;
+          // 2 conditions
+        case (specialCharacters === true && lowerCasedCharacters === true):
+          result += specialLower.charAt(Math.floor(Math.random() * passwordLength));
+          break;
+          // 1 condition
+        case userSpecialCharacter:
+          result += specialXter.charAt(Math.floor(Math.random() * passwordLength));
+          break;
+          // 1 condition
+        case userNumericCharacter:
+          result += (Math.floor(Math.random(numericXter) * passwordLength));
+          break;
+          // 1 condition
+        case lowerCaseCharacter:
+          result += lowerXter.charAt(Math.floor(Math.random() * passwordLength));
+          break;
+          // 1 condition
+        case upperCaseCharacter:
+          result += upperXter.charAt(Math.floor(Math.random() * passwordLength));
+          break;
+        
+        default:
+          test = "Generate failed";
+      }
+    }
+    console.log(result);
+    return result;
+  }
+  // generatePassword();
 
 // Get references to the #generate element
 var generateBtn = document.querySelector('#generate');
