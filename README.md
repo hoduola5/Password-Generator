@@ -1,6 +1,6 @@
 # Password-Generator
 
-Password Generator is an application that generates password based on user requirements. User must choose one of the following possible requirements before password can be generated:
+Password Generator is an application that generates password based on user requirements. It require user to enter the length of password they want to generate, and must choose one of the following possible requirements before password can be generated:
 
 - Include special characters only.
 - Include numeric characters only.
