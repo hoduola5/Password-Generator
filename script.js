@@ -119,6 +119,8 @@ function getPasswordOptions() {
   let upperCaseCharacter = confirm(
     "Do you want your password to include uppercase characters"
   );
+
+  //Object to store user inputs
   const pwdOptionsObj = {
     length: passwordLength,
     lower: lowerCaseCharacter,
@@ -127,8 +129,7 @@ function getPasswordOptions() {
     character: userSpecialCharacter,
   };
 
-  // To pass the variables to the next function
-  // getRandom(passwordLength, lowerCaseCharacter, upperCaseCharacter, userNumericCharacter, userSpecialCharacter);
+  // To make the object available outside of the function
   return pwdOptionsObj;
 }
 
@@ -166,7 +167,8 @@ function getRandom() {
   let lowerXter = lowerCasedCharacters.join("");
   let upperXter = upperCasedCharacters.join("");
 
-  const allConditions = {
+  //Object to store possible options
+  const allConditionsObj = {
     allCharacters: allCharacters,
     numberSpecialLower: numberSpecialLower,
     numberSpecialUpper: numberSpecialUpper,
@@ -184,7 +186,8 @@ function getRandom() {
     lowerXter: lowerXter,
     upperXter: upperXter,
   };
-  return allConditions;
+  // To make the object available outside of function
+  return allConditionsObj;
 }
 
 // Function to generate password with user input
@@ -307,10 +310,8 @@ function generatePassword() {
         test = "Generate failed";
     }
   }
-  console.log(result);
   return result;
 }
-// generatePassword();
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
