@@ -1,128 +1,159 @@
 // Array of special characters to be included in password
 var specialCharacters = [
-  '@',
-  '%',
-  '+',
-  '\\',
-  '/',
+  "@",
+  "%",
+  "+",
+  "\\",
+  "/",
   "'",
-  '!',
-  '#',
-  '$',
-  '^',
-  '?',
-  ':',
-  ',',
-  ')',
-  '(',
-  '}',
-  '{',
-  ']',
-  '[',
-  '~',
-  '-',
-  '_',
-  '.'
+  "!",
+  "#",
+  "$",
+  "^",
+  "?",
+  ":",
+  ",",
+  ")",
+  "(",
+  "}",
+  "{",
+  "]",
+  "[",
+  "~",
+  "-",
+  "_",
+  ".",
 ];
 
 // Array of numeric characters to be included in password
-var numericCharacters = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+var numericCharacters = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
 // Array of lowercase characters to be included in password
 var lowerCasedCharacters = [
-  'a',
-  'b',
-  'c',
-  'd',
-  'e',
-  'f',
-  'g',
-  'h',
-  'i',
-  'j',
-  'k',
-  'l',
-  'm',
-  'n',
-  'o',
-  'p',
-  'q',
-  'r',
-  's',
-  't',
-  'u',
-  'v',
-  'w',
-  'x',
-  'y',
-  'z'
+  "a",
+  "b",
+  "c",
+  "d",
+  "e",
+  "f",
+  "g",
+  "h",
+  "i",
+  "j",
+  "k",
+  "l",
+  "m",
+  "n",
+  "o",
+  "p",
+  "q",
+  "r",
+  "s",
+  "t",
+  "u",
+  "v",
+  "w",
+  "x",
+  "y",
+  "z",
 ];
 
 // Array of uppercase characters to be included in password
 var upperCasedCharacters = [
-  'A',
-  'B',
-  'C',
-  'D',
-  'E',
-  'F',
-  'G',
-  'H',
-  'I',
-  'J',
-  'K',
-  'L',
-  'M',
-  'N',
-  'O',
-  'P',
-  'Q',
-  'R',
-  'S',
-  'T',
-  'U',
-  'V',
-  'W',
-  'X',
-  'Y',
-  'Z'
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H",
+  "I",
+  "J",
+  "K",
+  "L",
+  "M",
+  "N",
+  "O",
+  "P",
+  "Q",
+  "R",
+  "S",
+  "T",
+  "U",
+  "V",
+  "W",
+  "X",
+  "Y",
+  "Z",
 ];
 
-
-
-
-
-// console.log(userSpecialCharacter);
 // Function to prompt user for password options
 function getPasswordOptions() {
-  alert('To use generate password, you need to enter your password lenght, then choose at least one the following options: specialCharacters, numericCharacters, lowerCasedCharacters, and upperCasedCharacters');
-  let passwordLength = prompt('Enter your password lenght with min 10 max 64');
-while (passwordLength === null || isNaN(passwordLength) || (passwordLength < 10) || (passwordLength > 64)) {
+  alert(
+    "To use generate password, you need to enter your password lenght, then choose at least one the following options: specialCharacters, numericCharacters, lowerCasedCharacters, and upperCasedCharacters"
+  );
+  let passwordLength = prompt("Enter your password lenght with min 10 max 64");
+  while (
+    passwordLength === null ||
+    isNaN(passwordLength) ||
+    passwordLength < 10 ||
+    passwordLength > 64
+  ) {
     alert("You did not enter a valid number or not within the range.");
-    passwordLength = prompt('Enter your password lenght with min 10 max 64');
-}
-alert(`You entered: ${passwordLength}`);
+    passwordLength = prompt("Enter your password lenght with min 10 max 64");
+  }
 
-// To save user options
-let userSpecialCharacter = confirm('Do you want your password to include special characters');
-let userNumericCharacter = confirm('Do you want  your password to include numeric characters');
-let lowerCaseCharacter = confirm('Do you want your password to include lowercase characters');
-let upperCaseCharacter = confirm('Do you want your password to include uppercase characters');
+  alert(`You entered: ${passwordLength}`);
 
-// To pass the variables to the next function
-getRandom(passwordLength, lowerCaseCharacter, upperCaseCharacter, userNumericCharacter, userSpecialCharacter);
+  // To save user options
+  let userSpecialCharacter = confirm(
+    "Do you want your password to include special characters"
+  );
+  let userNumericCharacter = confirm(
+    "Do you want  your password to include numeric characters"
+  );
+  let lowerCaseCharacter = confirm(
+    "Do you want your password to include lowercase characters"
+  );
+  let upperCaseCharacter = confirm(
+    "Do you want your password to include uppercase characters"
+  );
+  const pwdOptionsObj = {
+    length: passwordLength,
+    lower: lowerCaseCharacter,
+    upper: upperCaseCharacter,
+    number: userNumericCharacter,
+    character: userSpecialCharacter,
+  };
 
+  // To pass the variables to the next function
+  // getRandom(passwordLength, lowerCaseCharacter, upperCaseCharacter, userNumericCharacter, userSpecialCharacter);
+  return pwdOptionsObj;
 }
 
 // Function for getting a random element from an array
 function getRandom() {
-  getPasswordOptions();
   // Variables for all possible possible password combinations
-  let allCharacters = specialCharacters.concat(numericCharacters.concat(lowerCasedCharacters.concat(upperCasedCharacters))).join("");
-  let numberSpecialLower = numericCharacters.concat(lowerCasedCharacters.concat(specialCharacters)).join("");
-  let numberSpecialUpper = numericCharacters.concat(upperCasedCharacters.concat(specialCharacters)).join("");
-  let numberLowerUpper = numericCharacters.concat(lowerCasedCharacters.concat(upperCasedCharacters)).join("");
-  let specialLowerUpper = specialCharacters.concat(lowerCasedCharacters.concat(upperCasedCharacters)).join("");
+  let allCharacters = specialCharacters
+    .concat(
+      numericCharacters.concat(
+        lowerCasedCharacters.concat(upperCasedCharacters)
+      )
+    )
+    .join("");
+  let numberSpecialLower = numericCharacters
+    .concat(lowerCasedCharacters.concat(specialCharacters))
+    .join("");
+  let numberSpecialUpper = numericCharacters
+    .concat(upperCasedCharacters.concat(specialCharacters))
+    .join("");
+  let numberLowerUpper = numericCharacters
+    .concat(lowerCasedCharacters.concat(upperCasedCharacters))
+    .join("");
+  let specialLowerUpper = specialCharacters
+    .concat(lowerCasedCharacters.concat(upperCasedCharacters))
+    .join("");
   let lowerUpper = lowerCasedCharacters.concat(upperCasedCharacters).join("");
   let lowerSpecial = lowerCasedCharacters.concat(specialCharacters).join("");
   let lowerNumber = lowerCasedCharacters.concat(numericCharacters).join("");
@@ -135,112 +166,163 @@ function getRandom() {
   let lowerXter = lowerCasedCharacters.join("");
   let upperXter = upperCasedCharacters.join("");
 
-  // che cking the combination user choose from all possible combinations
-  let allConditions = allCharacters || numberSpecialLower || numberSpecialUpper || numberLowerUpper || numberLowerUpper || 
-    specialLowerUpper || lowerUpper || lowerSpecial || lowerNumber || upperNumber || specialUpper ||
-    specialLower || specialNumber || specialXter || numericXter || lowerXter || upperXter;
-
-    // To pass the local variables to the next function
-   generatePassword(passwordLength, userNumericCharacter, userSpecialCharacter, allConditions,);
+  const allConditions = {
+    allCharacters: allCharacters,
+    numberSpecialLower: numberSpecialLower,
+    numberSpecialUpper: numberSpecialUpper,
+    numberLowerUpper: numberLowerUpper,
+    specialLowerUpper: specialLowerUpper,
+    lowerUpper: lowerUpper,
+    lowerSpecial: lowerSpecial,
+    lowerNumber: lowerNumber,
+    upperNumber: upperNumber,
+    specialUpper: specialUpper,
+    specialLower: specialLower,
+    specialNumber: specialNumber,
+    specialXter: specialXter,
+    n: numericXter,
+    lowerXter: lowerXter,
+    upperXter: upperXter,
+  };
+  return allConditions;
 }
 
 // Function to generate password with user input
-function generatePassword(passwordLength, lowerCaseCharacter, upperCaseCharacter, userNumericCharacter, userSpecialCharacter, allConditions) {
+function generatePassword() {
+  const optionsObj = getPasswordOptions();
+  const passObj = getRandom();
   getRandom();
   let result = "";
   let test = true;
-    for (let i = 0, n = allConditions; i < passwordLength; ++i) {
-      switch(test) {
-        // 4 conditions
-        case (userNumericCharacter === true && userSpecialCharacter === true
-          && lowerCaseCharacter === true && upperCaseCharacter === true):
-          result += allCharacters.charAt(Math.floor(Math.random() * passwordLength));
-          break;
-          // 3 conditions
-        case (userNumericCharacter === true && userSpecialCharacter === true
-          && lowerCaseCharacter === true):
-          result += numberSpecialLower.charAt(Math.floor(Math.random() * passwordLength));
-          break;
-          // 3 conditions
-        case (userNumericCharacter === true && userSpecialCharacter === true
-          && upperCaseCharacter === true):
-          result += numberSpecialUpper.charAt(Math.floor(Math.random() * passwordLength));
-          break;
-          // 3 conditions
-        case (userNumericCharacter === true && lowerCaseCharacter === true
-          && upperCaseCharacter === true):
-          result += numberLowerUpper.charAt(Math.floor(Math.random() * passwordLength));
-          break;
-          // 3 conditions
-        case (userSpecialCharacter === true && lowerCaseCharacter === true
-          && upperCaseCharacter === true):
-          result += specialLowerUpper.charAt(Math.floor(Math.random() * passwordLength));
-          break;
-          // 2 conditions
-        case (userNumericCharacter === true && userSpecialCharacter === true):
-          result += specialNumber.charAt(Math.floor(Math.random() * passwordLength));
-          break;
-          // 2 conditions
-        case lowerCaseCharacter:
-        case upperCaseCharacter:
-          result += lowerUpper.charAt(Math.floor(Math.random() * passwordLength));
-          break;
-          // 2 conditions
-        case (lowerCasedCharacters === true && userSpecialCharacter === true):
-          result += lowerSpecial.charAt(Math.floor(Math.random() * passwordLength));
-          break;
-          // 2 conditions
-        case (lowerCasedCharacters === true && numericCharacters === true):
-          result += lowerNumber.charAt(Math.floor(Math.random() * passwordLength));
-          break;
-          // 2 conditions
-        case (upperCasedCharacters === true && numericCharacters === true):
-          result += upperNumber.charAt(Math.floor(Math.random() * passwordLength));
-          break;
-          // 2 conditions
-        case (specialCharacters === true && upperCasedCharacters === true):
-          result += specialUpper.charAt(Math.floor(Math.random() * passwordLength));
-          break;
-          // 2 conditions
-        case (specialCharacters === true && lowerCasedCharacters === true):
-          result += specialLower.charAt(Math.floor(Math.random() * passwordLength));
-          break;
-          // 1 condition
-        case userSpecialCharacter:
-          result += specialXter.charAt(Math.floor(Math.random() * passwordLength));
-          break;
-          // 1 condition
-        case userNumericCharacter:
-          result += (Math.floor(Math.random(numericXter) * passwordLength));
-          break;
-          // 1 condition
-        case lowerCaseCharacter:
-          result += lowerXter.charAt(Math.floor(Math.random() * passwordLength));
-          break;
-          // 1 condition
-        case upperCaseCharacter:
-          result += upperXter.charAt(Math.floor(Math.random() * passwordLength));
-          break;
-        
-        default:
-          test = "Generate failed";
-      }
+  for (let i = 0, n = optionsObj; i < optionsObj.length; ++i) {
+    switch (test) {
+      // 4 conditions
+      case optionsObj.number === true &&
+        optionsObj.character === true &&
+        optionsObj.lower === true &&
+        optionsObj.upper === true:
+        result += passObj.allCharacters.charAt(
+          Math.floor(Math.random() * optionsObj.length)
+        );
+        break;
+      // 3 conditions
+      case optionsObj.number === true &&
+        optionsObj.character === true &&
+        optionsObj.lower === true:
+        result += passObj.numberSpecialLower.charAt(
+          Math.floor(Math.random() * optionsObj.length)
+        );
+        break;
+      // 3 conditions
+      case optionsObj.number === true &&
+        optionsObj.character === true &&
+        optionsObj.upper === true:
+        result += passObj.numberSpecialUpper.charAt(
+          Math.floor(Math.random() * optionsObj.length)
+        );
+        break;
+      // 3 conditions
+      case optionsObj.number === true &&
+        optionsObj.lower === true &&
+        optionsObj.upper === true:
+        result += passObj.numberLowerUpper.charAt(
+          Math.floor(Math.random() * optionsObj.length)
+        );
+        break;
+      // 3 conditions
+      case optionsObj.character === true &&
+        optionsObj.lower === true &&
+        optionsObj.upper === true:
+        result += passObj.specialLowerUpper.charAt(
+          Math.floor(Math.random() * optionsObj.length)
+        );
+        break;
+      // 2 conditions
+      case optionsObj.number === true && optionsObj.character === true:
+        result += passObj.specialNumber.charAt(
+          Math.floor(Math.random() * optionsObj.length)
+        );
+        break;
+      // 2 conditions
+      case optionsObj.lower:
+      case optionsObj.upper:
+        result += passObj.lowerUpper.charAt(
+          Math.floor(Math.random() * optionsObj.length)
+        );
+        break;
+      // 2 conditions
+      case lowerCasedCharacters === true && optionsObj.character === true:
+        result += passObj.lowerSpecial.charAt(
+          Math.floor(Math.random() * optionsObj.length)
+        );
+        break;
+      // 2 conditions
+      case lowerCasedCharacters === true && numericCharacters === true:
+        result += passObj.lowerNumber.charAt(
+          Math.floor(Math.random() * optionsObj.length)
+        );
+        break;
+      // 2 conditions
+      case upperCasedCharacters === true && numericCharacters === true:
+        result += passObj.upperNumber.charAt(
+          Math.floor(Math.random() * optionsObj.length)
+        );
+        break;
+      // 2 conditions
+      case specialCharacters === true && upperCasedCharacters === true:
+        result += passObj.specialUpper.charAt(
+          Math.floor(Math.random() * optionsObj.length)
+        );
+        break;
+      // 2 conditions
+      case specialCharacters === true && lowerCasedCharacters === true:
+        result += passObj.specialLower.charAt(
+          Math.floor(Math.random() * optionsObj.length)
+        );
+        break;
+      // 1 condition
+      case optionsObj.character:
+        result += passObj.specialXter.charAt(
+          Math.floor(Math.random() * optionsObj.length)
+        );
+        break;
+      // 1 condition
+      case optionsObj.number:
+        result += Math.floor(Math.random(passObj.n) * optionsObj.length);
+        break;
+      // 1 condition
+      case optionsObj.lower:
+        result += passObj.lowerXter.charAt(
+          Math.floor(Math.random() * optionsObj.length)
+        );
+        break;
+      // 1 condition
+      case optionsObj.upper:
+        result += passObj.upperXter.charAt(
+          Math.floor(Math.random() * optionsObj.length)
+        );
+        break;
+
+      default:
+        test = "Generate failed";
     }
-    console.log(result);
-    return result;
   }
-  // generatePassword();
+  console.log(result);
+  return result;
+}
+// generatePassword();
 
 // Get references to the #generate element
-var generateBtn = document.querySelector('#generate');
+var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
 function writePassword() {
+  // const res = generatePassword();
   var password = generatePassword();
-  var passwordText = document.querySelector('#password');
+  var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
 }
 
 // Add event listener to generate button
-generateBtn.addEventListener('click', writePassword);
+generateBtn.addEventListener("click", writePassword);
